@@ -39,7 +39,7 @@ struct song_node * insert_front(struct song_node *n, char *nam, char *artis) {
 }
 
 struct song_node * insert_inOrder(struct song_node *n, char *nam, char *artis) {
-
+  
 }
 
 struct song_node * find_by_songName(struct song_node *n, char *nam) {
