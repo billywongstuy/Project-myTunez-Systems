@@ -4,22 +4,25 @@
 
 #include "song_node.h"
 
-
-char[] convertToLowerCase(char *original) {
+/*
+char convertToLowerCase(char original) {
   int len = strlen(original);
   char newString[len];
+  int start = 0;
   while (len) {
-    if (*original >= 65 && *original <= 90) {
-      newString[len(newString)-len] = *original+32;
+    if (original[start] >= 65 && original[start] <= 90) {
+      newString[strlen(*newString)-len] = original[start]+32;
     }
     else {
-      newString[len(newString)-len] = *original;
+      newString[strlen(*newString)-len] = original[start];
     }
     len--;
-    original++;
+    start++;
   }
   return newString;
 }
+*/
+
 
 void print_list(struct song_node *n) {
   while (n) {
@@ -28,39 +31,47 @@ void print_list(struct song_node *n) {
   }
 }
 
-struct song_node * insert_front(struct song_node *n, char *nam, char *artis) {
+song_node * insert_front(struct song_node *n, char nam[], char artis[]) {
   struct song_node *new = (struct song_node *)malloc(sizeof(struct song_node));
 
   new->next = n;
-  new->name = nam;
-  new->artist = artis;
+  strcpy(new->name,nam);
+  strcpy(new->artist,artis);
 
   return new;
 }
 
-struct song_node * insert_inOrder(struct song_node *n, char *nam, char *artis) {
-  
+song_node * insert_inOrder(struct song_node *n, char nam[], char artis[]) {
+  struct song_node *new = n;
+  while (strcmp(n->artist,artis) > 0) {
+    n = n->next;
+  }
+  while (strcmp(n->name,nam) > 0) {
+    n = n->next;
+  }
+  insert_front(n,nam,artis);
+  return new;
 }
 
-struct song_node * find_by_songName(struct song_node *n, char *nam) {
-  while (!(n->name.equals(*nam))) {
+song_node * find_by_songName(struct song_node *n, char nam[]) {
+  while (!(strcmp(n->name,nam) == 0)) {
     n = n->next;
   }
   return n;
 }
 
-struct song_node * find_by_artistName(struct song_node *n, char *artis) {
-  while (!(n->artist.equals(*artis))) {
+song_node * find_by_artistName(struct song_node *n, char artis[]) {
+  while (!(strcmp(n->artist,artis) == 0)) {
     n = n->next;
   }
   return n;
 }
 
-struct song_node * random_Song(struct song_node *n) {
+song_node * random_Song(struct song_node *n) {
   
 }
 
-struct song_node * removeSong(struct song_node *n, char *nam) {
+song_node * removeSong(struct song_node *n, char nam[]) {
   struct song_node *songLocation = find_by_songName(n,nam);
   songLocation->name = songLocation->next->name;
   songLocation->artist = songLocation->next->artist;
@@ -68,7 +79,7 @@ struct song_node * removeSong(struct song_node *n, char *nam) {
   return n;
 }
 
-struct song_node * emptyList(struct song_node *n) {
+song_node * emptyList(struct song_node *n) {
   struct node *temp = n;
   while (n) {
     n = n->next;
@@ -76,4 +87,8 @@ struct song_node * emptyList(struct song_node *n) {
     free(temp);
     temp = n;
   }
+}
+
+int main() {
+  return 0;
 }
