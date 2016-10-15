@@ -4,35 +4,35 @@
 #include "myTunez.h"
 
 
-struct song_node * addSong(song_node *table[], char *name, char *artist) {
+song_node * addSong(song_node table[], char *name, char *artist) {
+  return;
+}
+
+song_node * searchSong(song_node table[], char *name) {
+  return;
+}
+
+song_node * searchArtist(song_node table[], char *artist) {
+  return;
+}
+
+void printByLetter(song_node table[], char c) {
 
 }
 
-struct song_node * searchSong(song_node *table[], char *name) {
+void printLibrary(song_node table[]) {
 
 }
 
-struct song_node * searchArtist(song_node *table[], char *artist) {
+void shufflePrint(song_node table[]) {
 
 }
 
-void printByLetter(song_node *table[], char c) {
+void deleteSong(song_node table[], char *name) {
 
 }
 
-void printLibrary(song_node *table[]) {
-
-}
-
-void shufflePrint(song_node *table[]) {
-
-}
-
-void deleteSong(song_node *table[], char *name) {
-
-}
-
-void deleteAll(song_node *table) {
+void deleteAll(song_node table[]) {
 
 }
 

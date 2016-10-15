@@ -83,11 +83,14 @@ song_node * find_by_songName(struct song_node *n, char nam[]) {
   for(i = 0; nam[i]; i++){
     nam[i] = tolower(nam[i]);
   }*/
-  
-  while (!(strcmp(n->name,nam) == 0)) {
-    n = n->next;
+  struct song_node *l = n;
+  while (l && !(strcmp(l->name,nam) == 0)) {
+    l = l->next;
   }
-  return n;
+  if (l == NULL) {
+    return NULL;
+  }
+  return l;
 }
 
 song_node * find_by_artistName(struct song_node *n, char artis[]) {
@@ -96,11 +99,14 @@ song_node * find_by_artistName(struct song_node *n, char artis[]) {
   for(i = 0; artis[i]; i++){
     artis[i] = tolower(artis[i]);
   }*/
-  
-  while (!(strcmp(n->artist,artis) == 0)) {
-    n = n->next;
+  struct song_node *l = n;
+  while (l && !(strcmp(l->artist,artis) == 0)) {
+    l = l->next;
   }
-  return n;
+  if (l == NULL) {
+    return NULL;
+  }
+  return l;
 }
 
 song_node * random_Song(struct song_node *n) {
@@ -123,88 +129,31 @@ song_node * random_Song(struct song_node *n) {
   return r;
 }
 
-/*
-song_node * removeSong(struct song_node *n, char nam[]) {
 
-  int i;
-  for(i = 0; nam[i]; i++){
-    nam[i] = tolower(nam[i]);
-  }
+song_node * removeSong(struct song_node *n, char nam[]) {
+  
+  //int i;
+  //for(i = 0; nam[i]; i++){
+  //  nam[i] = tolower(nam[i]);
+  //  }
 
   struct song_node *songLocation = find_by_songName(n,nam);
-  songLocation->name = (char*)(songLocation->next->name);
-  songLocation->artist = songLocation->next->artist;
+  strcpy(songLocation->name,songLocation->next->name);
+  strcpy(songLocation->artist,songLocation->next->artist);
   songLocation->next = songLocation->next->next;
   return n;
 }
-*/
 
-struct song_node * free_list( struct song_node *n ) {
 
+song_node * free_list( struct song_node *n ) {
+  
   struct song_node *f = n;
-  while ( n ) {
+  
+  while (f) {
     n = n->next;
-    printf("freeing song_node: %d\n", f->name);
+    printf("freeing song_node: %s by %s\n",f->name,f->artist);
     free(f);
-    f = n;    
+    f = n;
   }
-  return n;
-}
-
-int main() {
-  song_node * songs = 0;
-  print_list(songs);
-
-  /*
-  songs = insert_front(songs,"Song1","Artist1");
-  songs = insert_front(songs,"Song2","Artist2");
-  songs = insert_front(songs,"Song3","Artist3");
-  */
-
-  songs = insert_inOrder(songs,"Song1","Artist1");
-  songs = insert_inOrder(songs,"Tong1","Arsis");
-
-  print_list(songs);
-  printf("\n---------------\n");
-  
-  songs = insert_inOrder(songs,"Song2","Artist2");
-
-
-  print_list(songs);
-  printf("\n--------------\n");
-  
-  songs = insert_inOrder(songs,"Song3","Artist3");
-
-  print_list(songs);
-  printf("\n--------------\n");
-
-  songs = insert_inOrder(songs,"Yello","Artist2");
-  songs = insert_inOrder(songs,"Wello","Artist2");
-
-  print_list(songs);
-  printf("\n--------------\n");
-  
-  songs = insert_inOrder(songs,"Allo","Artist2");
-
-  print_list(songs);
-  printf("\n--------------\n");
-  
-  songs = insert_inOrder(songs,"Xello","Artist2");
-
-  print_list(songs);
-  printf("\n--------------\n");
-  
-  songs = insert_inOrder(songs,"Twine","Artist2");
-
-  print_list(songs);
-  printf("\n--------------\n");
-  
-  songs = insert_inOrder(songs,"Zimmy","Artist3");
-
-  print_list(songs);
-  printf("\n--------------\n");
-
-  printf("Random: %s",(random_Song(songs))->name);
-  
-  return 0;
+  return n; 
 }
