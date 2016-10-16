@@ -67,6 +67,12 @@ int main() {
   printf("\nFreed songs\n\n");
 
   print_list(songs);
+
+  printf("\n\n\n\nTesting myTunez:\n\n");
+
+  song_node *table[26];
+
+  table = addSong(table,"Fun","Someone");
   
   return 0;
 }
