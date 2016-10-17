@@ -24,142 +24,53 @@ song_node * insert_front(struct song_node *n, char *nam, char *artis) {
 }
 
 
-/*
-song_node * insert_inOrderLoop(struct song_node *front, struct song_node *n, char *nam, char *artis) {
-  if (n && strcmp(n->artist,artis) < 0 && strcmp(n->name,nam) < 0) {
-    printf("Looping %s\n", nam);
-    return insert_inOrderLoop(front,n->next,nam,artis);
-  }
-  printf("Name of song after: %s\n",n->name);
-  n = insert_front(n,nam,artis);
-  printf("&\n"); print_list(n); printf("&\n\n");
-  printf("&\n"); print_list(front); printf("&\n\n");
-  
-  return front;
-}
-*/
-
 song_node * insert_inOrder(struct song_node *n, char *nam, char *artis) {
   //printf("PRELIST:\n"); print_list(n); printf("\n\n");
   
   struct song_node * temp = n;
-  strict song_node * prev;
   //printf("\ninserting SONG NAME:%s by %s\n",nam,artis);
   if (n == NULL) {
     n = insert_front(n,nam,artis);
+    printf("added %s\n",nam);
     return n;
   }
   
   if (strcmp(n->artist,artis) > 0 || (strcmp(n->artist,artis) == 0 && strcmp(n->name,nam) > 0)) {
-    printf("current locationee: %s\n",temp->name);
+    //printf("current locationee: %s\n",temp->name);
     n = insert_front(n,nam,artis);
-    printf("&\n"); print_list(n); printf("&\n\n");
+    //printf("&\n"); print_list(n); printf("&\n\n");
+    //printf("added %s\n",nam);
     return n;
   }
-  
-  while (temp->next && strcmp(temp->next->artist,artis) < 0) {
-    prev = temp;
-    temp = temp->next;
-  }
-  if (strcmp(n->next->artist,artis) <= 0) {
-    while (temp->next && strcmp(n->next->name,nam) < 0) {
-      prev = temp;
-      temp = temp->next;
-    }
-  }
+
   struct song_node *new = (struct song_node*)malloc(sizeof(struct song_node*));
   strcpy(new->artist,artis);
   strcpy(new->name,nam);
-  //printf("current location: %s\n",temp->name);
+  
+  while (temp->next && strcmp(n->artist,artis) < 0 && strcmp(temp->next->artist,artis) < 0) {
+    //printf("move type 1: %s and %s\n",temp->artist,temp->next->artist);
+    temp = temp->next;
+  }
+  if (strcmp(n->artist,artis) <= 0) {
+    while (temp->next && strcmp(temp->name,nam) < 0  && strcmp(temp->next->name,nam) < 0 && strcmp(temp->next->artist,artis) <= 0) {
+      //printf("move type 2: %s and %s\n",temp->name,temp->next->name);
+      temp = temp->next;
+    }
+  }
     
-  if (temp->next) {
+  if (temp != NULL) {
+    //printf("not null");
     new->next = temp->next;
     temp->next = new;
-  }
-  else if ((strcmp(temp->artist,artis) == 0 && strcmp(temp->name,nam) > 0) || strcmp(temp->artist,artis) > 0) {
-    new->next = temp;
-    prev->next = new;
-    
   }
   else {
     temp->next = new;
   }
-  
-  //printf("&\n"); print_list(n); printf("&\n\n");
+  //printf("added %s\n",nam);
   return n;
 }
 
-/*
-temp = n;
-loop through temp
-new->next = temp->next
-temp->next = new
-
-This stores the info
-
- */
-
-
-/*song_node * insert_inOrder(struct song_node *n, char *nam, char *artis) {
-
-  printf("\n%s\n",nam);
-  
-  if (n == NULL) {
-    n = insert_front(n,nam,artis);
-    return n;
-  }
-
-  
-  
-  struct song_node *new = (struct song_node*)malloc(sizeof(struct song_node*));
-
-  printf("\n%s %s %s %s\n",n->artist,artis,n->name,nam);
-  
-  strcpy(new->name,nam);  //after this statement n->artist changed
-  strcpy(new->artist,artis);  
-
-  printf("\n%s %s %s %s\n",n->artist,artis,n->name,nam);
-  
-  if (strcmp(n->artist,artis) > 0 || (strcmp(n->artist,artis) == 0 && strcmp(n->name,nam) > 0)) {
-    printf("\nOOOOO: %s\n",nam);
-    new->next = n;
-    return new;
-  }  
-  
-  struct song_node *temp = n;
-
-  //While the new artist is after the current artist and the next artist isn't equal to new artist
-  while (temp->next && strcmp(temp->artist,artis) < 0 && strcmp(temp->next->artist,artis) != 0) {
-    //printf("%s >> ",temp->name);
-    temp = temp->next;
-  }
-
-  //If the next artist is equal to the new artist
-  //while the new name is after the next name
-  while (temp->next && strcmp(temp->next->name,nam) < 0 && strcmp(temp->next->artist,artis) == 0) {
-    //printf("%s >>> ",temp->name);
-    temp = temp->next;
-  }
-
-  printf("\n%s\n",nam);
-  printf("\n%s and current temp: %lu\n",nam,temp);
-
-  new->next = temp->next;
-  temp->next = new;
-
-  //printf("\n***********************\n");
-  //print_list(n);
-  //printf("\n***********************\n");
-  
-  return n;
-}*/
-
 song_node * find_by_songName(struct song_node *n, char *nam) {
-  /*
-  int i;
-  for(i = 0; nam[i]; i++){
-    nam[i] = tolower(nam[i]);
-  }*/
   struct song_node *l = n;
   while (l && !(strcmp(l->name,nam) == 0)) {
     l = l->next;
@@ -206,19 +117,24 @@ song_node * random_Song(struct song_node *n) {
 song_node * removeSong(struct song_node *n, char *nam, char *artis) {
 
   song_node *l = n;
+
+  if (strcmp(l->name,nam) == 0 && strcmp(l->artist,artis) == 0) {
+    struct song_node *r = l;
+    l = l->next;
+    return r;
+  }
   
-  while (l->next && !(strcmp(l->next->artist,artis) == 0) && !(strcmp(l->next->name,nam) == 0)) {
+  while (l->next && (strcmp(l->next->artist,artis) != 0 || strcmp(l->next->name,nam) != 0)) {
     l = l->next;
   }
 
-  song_node *removed = l->next;
+  struct song_node *removed = l->next;
   
   if (l->next == NULL) {
     return NULL;
   }
 
   l->next = l->next->next;
-
   return removed;
 }
 
