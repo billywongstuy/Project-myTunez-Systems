@@ -43,6 +43,7 @@ song_node * insert_inOrder(struct song_node *n, char *nam, char *artis) {
   //printf("PRELIST:\n"); print_list(n); printf("\n\n");
   
   struct song_node * temp = n;
+  strict song_node * prev;
   //printf("\ninserting SONG NAME:%s by %s\n",nam,artis);
   if (n == NULL) {
     n = insert_front(n,nam,artis);
@@ -56,11 +57,13 @@ song_node * insert_inOrder(struct song_node *n, char *nam, char *artis) {
     return n;
   }
   
-  while (temp->next && strcmp(n->artist,artis) < 0) {
+  while (temp->next && strcmp(temp->next->artist,artis) < 0) {
+    prev = temp;
     temp = temp->next;
   }
-  if (strcmp(n->artist,artis) <= 0) {
-    while (temp->next && strcmp(n->name,nam) < 0) {
+  if (strcmp(n->next->artist,artis) <= 0) {
+    while (temp->next && strcmp(n->next->name,nam) < 0) {
+      prev = temp;
       temp = temp->next;
     }
   }
@@ -70,11 +73,15 @@ song_node * insert_inOrder(struct song_node *n, char *nam, char *artis) {
   //printf("current location: %s\n",temp->name);
     
   if (temp->next) {
-    new->next = temp->next->next;
-    temp->next->next = new;
+    new->next = temp->next;
+    temp->next = new;
+  }
+  else if ((strcmp(temp->artist,artis) == 0 && strcmp(temp->name,nam) > 0) || strcmp(temp->artist,artis) > 0) {
+    new->next = temp;
+    prev->next = new;
+    
   }
   else {
-    new->next = temp->next;
     temp->next = new;
   }
   
