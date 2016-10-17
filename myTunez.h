@@ -13,7 +13,7 @@ void printLibrary();
 
 void shufflePrint();
 
-void deleteSong(char *name);
+void deleteSong(char *name, char *artist);
 
 void deleteAll();
 

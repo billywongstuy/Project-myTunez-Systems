@@ -46,8 +46,10 @@ void shufflePrint() {
   //call random_Song by in what way?
 }
 
-void deleteSong(char *name) {
+void deleteSong(char *name, char *artist) {
   //removeSong(table[what])
+  int i = nIndex(artist[0]);
+  removeSong(table[i],name,artist);
 }
 
 void deleteAll() {

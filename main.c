@@ -30,12 +30,15 @@ int main() {
   songs = insert_inOrder(songs,"Allo","Artist2");
 
   print_list(songs);
-  printf("\n--------------\n");
+  printf("\n--------------o\n");
   
   songs = insert_inOrder(songs,"Xello","Artist2");  
   songs = insert_inOrder(songs,"Twine","Artist2");
+
+  //Line below has the problem
   songs = insert_inOrder(songs,"Zimmy","Artist3");
 
+  printf("\nHere\n");
   print_list(songs);
   printf("\n--------------\n");
 
@@ -55,7 +58,7 @@ int main() {
   printf("\n\nFind Artist3: \n");
   printf("Name of found artist song: %s by %s",(find_by_artistName(songs,"Artist3"))->name,(find_by_artistName(songs,"Artist3"))->artist);
 
-  removeSong(songs,"Xello");
+  removeSong(songs,"Xello","Artist2");
 
   printf("\n\nRemoved Xello\n\n");
 
