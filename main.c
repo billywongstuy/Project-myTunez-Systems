@@ -68,11 +68,18 @@ int main() {
 
   print_list(songs);
 
-  printf("\n\n\n\nTesting myTunez:\n\n");
+  //--------------------------------------------
 
-  song_node *table[26];
+  printf("-------------------------------------");
+  printf("\n\nTesting myTunez:\n\n");
 
-  table = addSong(table,"Fun","Someone");
+   
+  addSong("Fun","Someone");
+  addSong("Seed","Poppy");
+  printLibrary();
+
+  struct song_node *so = searchArtist("Someone");
+  printf("Name: %s",so->name);
   
   return 0;
 }

@@ -1,5 +1,24 @@
 #include "song_node.h"
 
+
+void addSong(char *name, char *artist);
+
+song_node * searchSong(char *name);
+
+song_node * searchArtist(char *artist);
+
+void printByLetter(char c);
+
+void printLibrary();
+
+void shufflePrint();
+
+void deleteSong(char *name);
+
+void deleteAll();
+
+
+/*
 song_node * addSong(song_node *table[26], char *name, char *artist);
 
 song_node * searchSong(song_node *table[26], char *name);
@@ -15,4 +34,6 @@ void shufflePrint(song_node *table[26]);
 void deleteSong(song_node *table[26], char *name);
 
 void deleteAll(song_node *table[26]);
+
+*/
 

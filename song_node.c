@@ -138,6 +138,9 @@ song_node * removeSong(struct song_node *n, char nam[]) {
   //  }
 
   struct song_node *songLocation = find_by_songName(n,nam);
+  if (songLocation == NULL) {
+    return n;
+  }
   strcpy(songLocation->name,songLocation->next->name);
   strcpy(songLocation->artist,songLocation->next->artist);
   songLocation->next = songLocation->next->next;
