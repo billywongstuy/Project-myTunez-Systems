@@ -79,10 +79,22 @@ int main() {
    
   addSong("Fun","Someone");
   addSong("Seed","Poppy");
+  addSong("Zombies on the Lawn","Sunflower");
+  addSong("Blue","Green");
+  addSong("Disgust","Anger");
+  addSong("Yellow","Orange");
+  addSong("Ohy","Poppy");
+  addSong("IO","Popre");
+  addSong("Qwerty","Poppy");
+  addSong("Asdf","Popo");
+  
   printLibrary();
-
+  printf("\n");
+  
   struct song_node *so = searchArtist("Someone");
-  printf("Name: %s",so->name);
+  printf("Name: %s\n",so->name);
+
+  print_Artist("Poppy");
   
   return 0;
 }

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "myTunez.h"
 
@@ -22,7 +23,13 @@ void addSong(char *name, char *artist) {
 }
 
 song_node * searchSong(char *name) {
-  return;
+  int i = 0;
+  struct song_node * l;
+  while (l == NULL) {
+    l = find_by_songName(table[i],name);
+    i++;
+  }
+  return l;
 }
 
 song_node * searchArtist(char *artist) {
@@ -32,6 +39,19 @@ song_node * searchArtist(char *artist) {
 
 void printByLetter(char c) {
   print_list(table[nIndex(c)]);
+}
+
+
+void print_Artist(char *artist) {
+  //This needs a fix
+  struct song_node * start = searchArtist(artist);
+  //print_Node(start);
+  //printf("oooooo\n");
+  while (strcmp(start->artist,artist) == 0) {
+    //printf("dhuidboooooo\n");
+    print_Node(start);
+    start = start->next;
+  }
 }
 
 void printLibrary() {

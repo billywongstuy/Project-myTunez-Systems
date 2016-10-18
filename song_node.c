@@ -4,13 +4,17 @@
 #include <ctype.h>
 
 #include "song_node.h"
-
+ 
 
 void print_list(struct song_node *n) {
   while (n) {
     printf("%s by %s\n", n->name, n->artist);
     n = n->next;
   }
+}
+
+void print_Node(struct song_node *n) {
+  printf("%s by %s\n", n->name, n->artist);
 }
 
 song_node * insert_front(struct song_node *n, char *nam, char *artis) {
@@ -31,7 +35,7 @@ song_node * insert_inOrder(struct song_node *n, char *nam, char *artis) {
   //printf("\ninserting SONG NAME:%s by %s\n",nam,artis);
   if (n == NULL) {
     n = insert_front(n,nam,artis);
-    printf("added %s\n",nam);
+    //printf("added %s\n",nam);
     return n;
   }
   

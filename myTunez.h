@@ -9,6 +9,8 @@ song_node * searchArtist(char *artist);
 
 void printByLetter(char c);
 
+void printArtist(char *artist);
+
 void printLibrary();
 
 void shufflePrint();
