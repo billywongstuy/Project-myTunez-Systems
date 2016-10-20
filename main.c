@@ -84,6 +84,7 @@ int main() {
   addSong("Blue","Green");
   addSong("Disgust","Anger");
   addSong("Yellow","Orange");
+  addSong("Qwerty","Animal");
   addSong("Ohy","Poppy");
   addSong("IO","Popre");
   addSong("Qwerty","Poppy");
@@ -97,12 +98,34 @@ int main() {
   printf("\n--------\n");
 
   struct song_node *so = searchArtist("Someone");
-  printf("Name: %s\n\n\n",so->name);
+  printf("Find artist Someone: \nName: %s by %s\n\n\n",so->name,so->artist);
   
   struct song_node *sp = searchSong("Qwerty");
-  printf("Name: %s\n",sp->name);
+  printf("Find song Qwerty: \nName: %s by %s\n",sp->name,sp->artist);
 
-  printf("\n-------------\n\n");
+  printf("\n-------------\n\nPrint Letter 'A'\n");
+
+  printByLetter('A');
+
+  printf("\n\n");
+
+  printf("\n-------------\n\nPrint Letter 'P'\n");
+
+  printByLetter('P');
+
+  printf("\n\n");
+  
+  printf("\n-------------\n\nPrint Letter 'S'\n");
+
+  printByLetter('S');
+
+  printf("\n\n");
+
+  printf("\n-------------\n\nPrint Letter 'G'\n");
+
+  printByLetter('G');
+
+  printf("\n\n");
   
   shufflePrint();
 
@@ -112,6 +135,8 @@ int main() {
   
   printLibrary();
 
+  printf("\n");
+  
   deleteAll();
   
   printf("\n\nDeleted all songs!\n");
