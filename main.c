@@ -5,6 +5,7 @@
 
 
 int main() {
+  srand(time(NULL));
   song_node * songs = 0;
 
   printf("Testing linkedlist functions:\n");
@@ -90,11 +91,32 @@ int main() {
   
   printLibrary();
   printf("\n");
-  
-  struct song_node *so = searchArtist("Someone");
-  printf("Name: %s\n",so->name);
 
   print_Artist("Poppy");
+
+  printf("\n--------\n");
+
+  struct song_node *so = searchArtist("Someone");
+  printf("Name: %s\n\n\n",so->name);
+  
+  struct song_node *sp = searchSong("Qwerty");
+  printf("Name: %s\n",sp->name);
+
+  printf("\n-------------\n\n");
+  
+  shufflePrint();
+
+  deleteSong("IO","Popre");
+
+  printf("\nDeleted IO by Popre:\n");
+  
+  printLibrary();
+
+  deleteAll();
+  
+  printf("\n\nDeleted all songs!\n");
+
+  printLibrary();
   
   return 0;
 }

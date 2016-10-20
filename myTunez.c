@@ -5,7 +5,7 @@
 #include "myTunez.h"
 
 song_node *table[26];
-
+int total = 0;
 
 int nIndex(char c) {
   if (c >= 65 && c <= 90) {
@@ -19,13 +19,14 @@ int nIndex(char c) {
 
 void addSong(char *name, char *artist) {
   int i = nIndex(artist[0]);
-  table[i] = insert_inOrder(table[i],name,artist); 
+  table[i] = insert_inOrder(table[i],name,artist);
+  total++;
 }
 
 song_node * searchSong(char *name) {
   int i = 0;
-  struct song_node * l;
-  while (l == NULL) {
+  struct song_node * l = NULL;
+  while (l == NULL && i < 26) {
     l = find_by_songName(table[i],name);
     i++;
   }
@@ -63,7 +64,23 @@ void printLibrary() {
 }
 
 void shufflePrint() {
-  //call random_Song by in what way?
+  //srand(time(NULL));
+  int amount = rand()%6+5; //Between 5 to 10 songs
+  if (amount > total) {
+    amount = total;
+  }  
+  int randLetter;
+  struct song_node * result;
+  printf("Random List:\n");
+  while (amount) {
+    randLetter = rand()%26;
+    while (table[randLetter] == NULL) {
+      randLetter = rand()%26;
+    }    
+    result = random_Song(table[randLetter]);
+    printf("%s by %s\n",result->name,result->artist);
+    amount--;
+  }
 }
 
 void deleteSong(char *name, char *artist) {
@@ -75,9 +92,12 @@ void deleteSong(char *name, char *artist) {
 void deleteAll() {
   int i = 0;
   while (i < 26) {
-    free_list(table[i]);
+    table[i] = free_list(table[i]);
+    i++;
   }
 }
+
+
 
 
 /*

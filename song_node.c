@@ -77,6 +77,7 @@ song_node * insert_inOrder(struct song_node *n, char *nam, char *artis) {
 song_node * find_by_songName(struct song_node *n, char *nam) {
   struct song_node *l = n;
   while (l && !(strcmp(l->name,nam) == 0)) {
+    //printf("Looking for %s. Current is %s\n",nam,l->name);
     l = l->next;
   }
   if (l == NULL) {
@@ -101,7 +102,7 @@ song_node * random_Song(struct song_node *n) {
   if (n == NULL) {
     return;
   }
-  srand(time(NULL));
+  //srand(time(NULL));
   int s = rand();
   
   struct song_node *r = n;
